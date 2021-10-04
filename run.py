@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from adgbot import main
+from bottymcbotface import main
 
 if __name__ == "__main__":
     main()
