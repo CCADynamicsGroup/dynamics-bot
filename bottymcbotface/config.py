@@ -55,6 +55,6 @@ SHARED_DRIVE_NAME = os.environ.get(
 )
 TEMPLATE_NAME = os.environ.get("TEMPLATE_NAME", "__template__")
 SHARE_WITH_EMAIL = os.environ.get(
-    "SHARE_WITH_EMAIL", "astro-data-group@googlegroups.com"
+    "SHARE_WITH_EMAIL", "ccadynamics@googlegroups.com"
 )
 ZOOM_LINK = os.environ.get("ZOOM_LINK", None)
