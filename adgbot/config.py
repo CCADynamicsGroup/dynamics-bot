@@ -5,7 +5,6 @@ __all__ = [
     "SHARED_DRIVE_NAME",
     "TEMPLATE_NAME",
     "SHARE_WITH_EMAIL",
-    "SEND_TO_EMAIL",
     "get_google_json",
     "get_slack_json",
     "get_email_template",
@@ -29,41 +28,33 @@ def get_slack_json():
         return json.load(f)
 
 
-def get_mailgun_json():
-    if "MAILGUN_INFO" in os.environ:
-        return json.loads(os.environ["MAILGUN_INFO"])
-    with open("secrets/mailgun.json", "r") as f:
-        return json.load(f)
-
-
-def get_email_template():
-    return """
+def get_email_template(slide_deck_url, zoom_link):
+    return f"""
 Hi all,
 
-We will have group meeting at 12:30 today. Don't forget to add a slide to the deck:
+Today's CCA Dynamics meeting will be at 14:00 EDT in the 6th floor conference room, or at the usual Zoom link:
+{zoom_link}
+
+If you would like to share a figure, a research update, or make an announcement, please add a slide to today's slide deck:
 
 {slide_deck_url}
 
-Best,
-A Robot
+best,
+- Adrian
 """.strip()
 
 
 GOOGLE_JSON = get_google_json()
 SLACK_JSON = get_slack_json()
-MAILGUN_JSON = get_mailgun_json()
 
 PRESENTATION_TITLE = os.environ.get(
-    "PRESENTATION_TITLE", "Astro Data Group Meeting"
+    "PRESENTATION_TITLE", "Dynamics Group Meeting"
 )
 SHARED_DRIVE_NAME = os.environ.get(
-    "SHARED_DRIVE_NAME", "Astronomical Data Group"
+    "SHARED_DRIVE_NAME", "CCA Dynamics Group"
 )
 TEMPLATE_NAME = os.environ.get("TEMPLATE_NAME", "__template__")
 SHARE_WITH_EMAIL = os.environ.get(
     "SHARE_WITH_EMAIL", "astro-data-group@googlegroups.com"
-)
-SEND_TO_EMAIL = os.environ.get(
-    "SEND_TO_EMAIL", "astro-data-group@googlegroups.com"
 )
 ZOOM_LINK = os.environ.get("ZOOM_LINK", None)

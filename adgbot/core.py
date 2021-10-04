@@ -13,7 +13,10 @@ Add your slide here: {0}
         new_file["webViewLink"]
     )
     slack.post_message(message)
-    mail.send_message(new_file["webViewLink"])
+
+    # TODO: get email message
+    message = config.get_email_template(url, config.ZOOM_LINK)
+
     return {
         "statusCode": "200",
         "body": '{"message": "success"}',
