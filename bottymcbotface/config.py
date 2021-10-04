@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 
 __all__ = [
-    "PRESENTATION_TITLE",
-    "SHARED_DRIVE_NAME",
-    "TEMPLATE_NAME",
-    "SHARE_WITH_EMAIL",
     "get_google_json",
     "get_slack_json",
     "get_message",
@@ -28,6 +24,13 @@ def get_slack_json():
         return json.load(f)
 
 
+def get_other_config():
+    if "OTHER_CONFIG" in os.environ:
+        return json.loads(os.environ["OTHER_CONFIG"])
+    with open("secrets/config.json", "r") as f:
+        return json.load(f)
+
+
 def get_message(slide_deck_url, zoom_link):
     return f"""
 Hi all,
@@ -38,20 +41,17 @@ Today's CCA Dynamics meeting will be at 14:00 EDT in the 6th floor conference ro
 If you would like to share a figure, a research update, or make an announcement, please add a slide to today's slide deck:
 
 {slide_deck_url}
+
+CCA Dynamics Group website:
+https://galacticdynamics.nyc/
+
+To join this Google group:
+https://groups.google.com/u/1/g/ccadynamics
+
 """.strip()
 
 
 GOOGLE_JSON = get_google_json()
-SLACK_JSON = get_slack_json()
-
-PRESENTATION_TITLE = os.environ.get(
-    "PRESENTATION_TITLE", "Dynamics Group Meeting"
-)
-SHARED_DRIVE_NAME = os.environ.get(
-    "SHARED_DRIVE_NAME", "CCA Dynamics Group"
-)
-TEMPLATE_NAME = os.environ.get("TEMPLATE_NAME", "__template__")
-SHARE_WITH_EMAIL = os.environ.get(
-    "SHARE_WITH_EMAIL", "ccadynamics@googlegroups.com"
-)
-ZOOM_LINK = os.environ.get("ZOOM_LINK", None)
+# SLACK_JSON = get_slack_json()
+OTHER_CONFIG = get_other_config()
+locals().update(OTHER_CONFIG)

@@ -29,11 +29,6 @@ def get_creds():
     )
 
 
-def get_email_service():
-    creds = get_creds()
-    return build("gmail", "v1", credentials=creds)
-
-
 def get_drive_service():
     return build("drive", "v3", credentials=get_creds())
 
@@ -42,60 +37,38 @@ def get_slides_service():
     return build("slides", "v1", credentials=get_creds())
 
 
-def get_shared_drive(drive_service):
-    drive_list = drive_service.drives().list().execute()
-    for drive in drive_list.get("drives", []):
-        if drive.get("name", "") == config.SHARED_DRIVE_NAME:
-            return drive
-    raise RuntimeError("can't find shared drive")
-
-
-def copy_template_file(drive_service, shared_drive):
+def copy_template_file(drive_service):
     # First, find the template file
-    drive_id = shared_drive["id"]
-    result = (
-        drive_service.files()
-        .list(
-            corpora="drive",
-            includeItemsFromAllDrives=True,
-            supportsAllDrives=True,
-            driveId=drive_id,
-            q="name = '{0}'".format(config.TEMPLATE_NAME),
-        )
-        .execute()
-    )
+    result = drive_service.files().list(
+        includeItemsFromAllDrives=True,
+        supportsAllDrives=True,
+        q="name = '{0}'".format(config.TEMPLATE_NAME),
+    ).execute()
+
     files = result.get("files", [])
     if not len(files) or files[0].get("name") != config.TEMPLATE_NAME:
         raise RuntimeError("can't find template file")
     file = files[0]
 
     # Then copy it
-    new_file = (
-        drive_service.files()
-        .copy(
-            fileId=file["id"],
-            fields="id,webViewLink",
-            supportsAllDrives=True,
-            body=dict(name=get_filename()),
-        )
-        .execute()
-    )
+    new_file = drive_service.files().copy(
+        fileId=file["id"],
+        fields="id,webViewLink",
+        supportsAllDrives=True,
+        body=dict(name=get_filename()),
+    ).execute()
 
     # Share with the Google group
-    (
-        drive_service.permissions()
-        .create(
-            fileId=new_file["id"],
-            supportsAllDrives=True,
-            sendNotificationEmail=False,
-            body=dict(
-                role="writer",
-                type="group",
-                emailAddress=config.SHARE_WITH_EMAIL,
-            ),
-        )
-        .execute()
-    )
+    drive_service.permissions().create(
+        fileId=new_file["id"],
+        supportsAllDrives=True,
+        sendNotificationEmail=False,
+        body=dict(
+            role="writer",
+            type="group",
+            emailAddress=config.SHARE_WITH_EMAIL,
+        ),
+    ).execute()
 
     return new_file
 
@@ -122,7 +95,6 @@ def update_date(presentation_file):
 
 def create_new_deck():
     drive_service = get_drive_service()
-    shared_drive = get_shared_drive(drive_service)
-    new_file = copy_template_file(drive_service, shared_drive)
+    new_file = copy_template_file(drive_service)
     update_date(new_file)
     return new_file
