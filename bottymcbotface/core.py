@@ -5,17 +5,10 @@ from . import google, slack, config
 
 def main(*args, **kwargs) -> None:
     new_file = google.create_new_deck()
-    message = """
-Hello! I created a new slide deck for this week's group meeting.
 
-Add your slide here: {0}
-""".strip().format(
-        new_file["webViewLink"]
-    )
+    message = config.get_message(new_file["webViewLink"], config.ZOOM_LINK)
+
     slack.post_message(message)
-
-    # TODO: get email message
-    message = config.get_email_template(url, config.ZOOM_LINK)
 
     return {
         "statusCode": "200",

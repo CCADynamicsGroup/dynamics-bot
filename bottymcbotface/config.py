@@ -7,7 +7,7 @@ __all__ = [
     "SHARE_WITH_EMAIL",
     "get_google_json",
     "get_slack_json",
-    "get_email_template",
+    "get_message",
 ]
 
 import os
@@ -28,7 +28,7 @@ def get_slack_json():
         return json.load(f)
 
 
-def get_email_template(slide_deck_url, zoom_link):
+def get_message(slide_deck_url, zoom_link):
     return f"""
 Hi all,
 
@@ -38,9 +38,6 @@ Today's CCA Dynamics meeting will be at 14:00 EDT in the 6th floor conference ro
 If you would like to share a figure, a research update, or make an announcement, please add a slide to today's slide deck:
 
 {slide_deck_url}
-
-best,
-- Adrian
 """.strip()
 
 
