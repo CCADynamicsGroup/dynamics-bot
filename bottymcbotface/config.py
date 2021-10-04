@@ -45,13 +45,13 @@ If you would like to share a figure, a research update, or make an announcement,
 CCA Dynamics Group website:
 https://galacticdynamics.nyc/
 
-To join this Google group:
+To join the Google group:
 https://groups.google.com/u/1/g/ccadynamics
 
 """.strip()
 
 
 GOOGLE_JSON = get_google_json()
-# SLACK_JSON = get_slack_json()
+SLACK_JSON = get_slack_json()
 OTHER_CONFIG = get_other_config()
 locals().update(OTHER_CONFIG)
