@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from . import google, slack, mail, config
+from . import google, slack, config
 
 
 def main(*args, **kwargs) -> None:
