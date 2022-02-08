@@ -35,7 +35,7 @@ def get_message(slide_deck_url, zoom_link):
     return f"""
 Hi all,
 
-Today's CCA Dynamics meeting will be at 13:30 EDT in the 6th floor conference room, or at the usual Zoom link:
+Today's CCA Dynamics meeting will be at 14:00 EST in the 6th floor conference room, or at the usual Zoom link:
 {zoom_link}
 
 If you would like to share a figure, a research update, or make an announcement, please add a slide to today's slide deck:
