@@ -2,7 +2,7 @@
 
 __all__ = ["create_new_deck"]
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
@@ -16,7 +16,8 @@ SCOPES = [
 
 
 def get_date_slug():
-    return datetime.today().strftime("%Y-%m-%d")
+    # Increment 1 day: meetings are on Thursday!
+    return (datetime.today() + timedelta(days=1)).strftime("%Y-%m-%d")
 
 
 def get_filename():

@@ -35,12 +35,15 @@ def get_message(slide_deck_url, zoom_link):
     return f"""
 Hi all,
 
-Today's CCA Dynamics meeting will be at 14:00 EST in the 6th floor conference room, or at the usual Zoom link:
-{zoom_link}
+Tomorrow's CCA Galactic Dynamics Community Meeting will be 14:00–15:30 Eastern in the 5th floor classroom.
 
-If you would like to share a figure, a research update, or make an announcement, please add a slide to today's slide deck:
+We will kick off the meeting with very short introductions, then hear from (( NAME 1 )) and (( NAME 2 )) in the first half of the meeting.
+
+For the second half of the meeting, everyone is invited to share a figure, a research update, a paper (from someone else!), an announcement, fun news, etc. If you plan to share something, please add a slide to this slide deck:
 
 {slide_deck_url}
+
+If you have not been added to the visitor list for the CCA, please email Adrian (aprice-whelan@flatironinstitute.org) by 15:00 today or you may not be able to enter the building!
 
 CCA Dynamics Group website:
 https://galacticdynamics.nyc/

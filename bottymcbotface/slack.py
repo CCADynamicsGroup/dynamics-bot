@@ -10,7 +10,7 @@ MESSAGE_TEMPLATE = """<@U025P7E2F8T>
 
 *Email to:* ccadynamics@googlegroups.com
 
-*Email subject:* CCA Dynamics Meeting Today
+*Email subject:* CCA Galactic Dynamics Community Meeting tomorrow
 
 *Email body / Slack message:*
 {body}
